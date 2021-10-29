@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  updater:
+    container_name: updater
+    image: ebrianne/docker-updater:v1.0
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - $HOME:/git
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CRON_SCHEDULE="*/10 * * * *"
+      - PLATFORM=github
+      - GIT_REPO=ebrianne/k3s-at-home
+      - BRANCH=master
+      - SUB_PATH=docker
+      - CLEAN_AFTER_UPDATE=1

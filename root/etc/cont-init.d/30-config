@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+
+TIMESTAMP_FORMAT='%a %b %d %T %Y'
+log() {
+  echo "$(date +"${TIMESTAMP_FORMAT}") [30-config] $*"
+}
+
+echo -e "Variables set:\\n\
+CRON_SCHEDULE=${CRON_SCHEDULE}\\n\
+PLATFORM=${PLATFORM}\\n\
+TZ=${TZ}\\n\
+BRANCH=${BRANCH}\\n\
+GIT_REPO=${GIT_REPO}\\n\
+SUB_PATH=${SUB_PATH}\\n\
+CLEAN_AFTER_UPDATE=${CLEAN_AFTER_UPDATE}\\n"
+
+if [[ ! -z ${CRON_SCHEDULE} ]]; then
+  log "Will execute /app/updater.sh with cron schedule of ${CRON_SCHEDULE//\"/}"
+  echo "${CRON_SCHEDULE//\"/} /app/updater.sh" > /etc/crontabs/root
+else
+  log "No cron schedule was supplied"
+fi

@@ -40,7 +40,7 @@ for APP in `ls .`; do
     log "Checking $APP with $N_SERVICES services"
     
     # Make list of remote and local tags
-    REMOTE_TAG=($(wget -qO- https://${RAW_URL_PLATFORM}/${GIT_REPO}/${BRANCH}}/${SUB_PATH}/${APP}/docker-compose.yml | yq e '(.services[].image)' -))
+    REMOTE_TAG=($(wget -qO- https://${RAW_URL_PLATFORM}/${GIT_REPO}/${BRANCH}/${SUB_PATH}/${APP}/docker-compose.yml | yq e '(.services[].image)' -))
     log "Remote tag(s): ${REMOTE_TAG[*]}"
     LOCAL_TAG=($(yq e '(.services[].image)' $APP/docker-compose.yml))
     log "Local tag(s): ${LOCAL_TAG[*]}" 
@@ -60,7 +60,7 @@ for APP in `ls .`; do
             
             # Replace the image with the new one
             TAG=${REMOTE_TAG[$i]} SERVICE_NAME="${SERVICE_NAME[$i]}" yq eval -i '(.services.[env(SERVICE_NAME)].image) = strenv(TAG)' $APP/docker-compose.yml
-            docker-compose up -d --force-recreate
+            docker-compose up -d --force-recreate -f $APP/docker-compose.yml
         else
             continue
         fi

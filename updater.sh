@@ -5,6 +5,12 @@ log() {
   echo "$(date +"${TIMESTAMP_FORMAT}") [updater] $*"
 }
 
+# Turn on debugging
+
+if [[ $DEBUG == 1 ]]; then
+    set -x
+fi
+
 ## Script to update the docker-compose file from the github repo via cronjob
 # Get the image tag from the remote docker-compose file
 # Compare with the current image tag

@@ -17,3 +17,4 @@ services:
       - BRANCH=master
       - SUB_PATH=docker
       - CLEAN_AFTER_UPDATE=1
+      - DEBUG=0

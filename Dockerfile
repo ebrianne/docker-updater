@@ -7,7 +7,8 @@ ENV OVERLAY_VERSION="v2.2.0.3" \
     BRANCH="master" \
     CRON_SCHEDULE="*/10 * * * *" \
     CLEAN_AFTER_UPDATE=0 \
-    HOME=/git
+    HOME=/git \
+    DEBUG=0
 
 RUN apk update \
     && apk upgrade \

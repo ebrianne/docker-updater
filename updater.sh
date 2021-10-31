@@ -5,6 +5,8 @@ log() {
   echo "$(date +"${TIMESTAMP_FORMAT}") [updater] $*"
 }
 
+. /etc/bash_environment
+
 # Turn on debugging
 
 if [[ $DEBUG == 1 ]]; then

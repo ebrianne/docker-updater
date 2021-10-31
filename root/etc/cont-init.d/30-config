@@ -12,7 +12,11 @@ TZ=${TZ}\\n\
 BRANCH=${BRANCH}\\n\
 GIT_REPO=${GIT_REPO}\\n\
 SUB_PATH=${SUB_PATH}\\n\
-CLEAN_AFTER_UPDATE=${CLEAN_AFTER_UPDATE}\\n"
+CLEAN_AFTER_UPDATE=${CLEAN_AFTER_UPDATE}\\n\
+DEBUG=${DEBUG}\\n"
+
+printenv | sed 's/^\(.*\)$/export \1/g' > /etc/bash_environment
+chmod +x /etc/bash_environment
 
 if [[ ! -z ${CRON_SCHEDULE} ]]; then
   log "Will execute /app/updater.sh with cron schedule of ${CRON_SCHEDULE//\"/}"

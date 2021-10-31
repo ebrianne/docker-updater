@@ -24,7 +24,8 @@ jobs:
           filters: |
             docker:
               - 'Dockerfile'
-              - 'root/'
+              - 'root/*'
+              - 'updater.sh'
 
   build-docker:
     runs-on: ubuntu-latest

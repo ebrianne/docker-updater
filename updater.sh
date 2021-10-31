@@ -68,7 +68,7 @@ for APP in `ls .`; do
             
             # Replace the image with the new one
             TAG=${REMOTE_TAG[$i]} SERVICE_NAME="${SERVICE_NAME[$i]}" yq eval -i '(.services.[env(SERVICE_NAME)].image) = strenv(TAG)' $APP/docker-compose.yml
-            docker-compose up -d --force-recreate -f $APP/docker-compose.yml
+            docker-compose -f $APP/docker-compose.yml up -d --force-recreate
         else
             continue
         fi
